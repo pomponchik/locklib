@@ -135,14 +135,20 @@ class Sequence:
             self.leaves[id] = child
 
     def get_agent(self, id):
-        print('pre 10')
-        with self.lock:
-            print('post 10')
-            if id in self.leaves:
-                return self.leaves[id]
-            agent = self.create_agent(id)
-            self.register_child(agent, id)
-            return agent
+        agent = self.leaves.get(id)
+        if agent is None:
+            print('pre 10')
+            with self.lock:
+                print('post 10')
+                if len(self.leaves) < self.width ** self.root.height:
+                    agent = self.create_agent(id)
+                    middle = self.get_middle_to_paste()
+                    branch = self.create_branch()
+                else:
+                    pass
+                agent = self.create_agent(id)
+                self.register_child(agent, id)
+        return agent
 
     def get_new_middle(self, width):
         print('pre 11')
