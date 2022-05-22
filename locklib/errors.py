@@ -1,0 +1,2 @@
+class DeadLockError(ValueError):
+    pass
