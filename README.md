@@ -71,4 +71,18 @@ And... We have an exception like this:
 locklib.errors.DeadLockError: A cycle between 1970256th and 1970257th threads has been detected. The full path of the cycle: 1970257, 1970256.
 ```
 
+Deadlocks are impossible for this lock!
+
+If you want to catch the exception, import it from the locklib too:
+
+```python
+>>> from locklib import LifeLock, DeadLockError
+>>> lock = LifeLock()
+>>> try:
+... ... with lock:
+... ... ... do_something()
+... except DeadLockError as e:
+... ... print('oops!')
+```
+
 ### How it works?
