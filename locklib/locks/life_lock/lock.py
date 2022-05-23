@@ -35,7 +35,7 @@ class LifeLock:
                 next = self.deque[-1]
                 graph.delete_link(next, id)
                 self.local_locks[id].release()
-            
+
             del self.local_locks[id]
 
     def __enter__(self):
