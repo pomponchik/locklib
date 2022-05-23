@@ -7,6 +7,13 @@ from locklib.locks.life_lock.lock import LifeLock
 from locklib.errors import DeadLockError
 
 
+def test_release_unlocked():
+    lock = LifeLock()
+
+    with pytest.raises(RuntimeError):
+        lock.release()
+
+
 @pytest.mark.timeout(1)
 def test_raise_when_simple_deadlock():
     number_of_attempts = 50
