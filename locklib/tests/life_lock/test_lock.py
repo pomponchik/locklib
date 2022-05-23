@@ -7,6 +7,7 @@ from locklib.locks.life_lock.lock import LifeLock
 from locklib.errors import DeadLockError
 
 
+@pytest.mark.timeout(1)
 def test_raise_when_deadlock():
     number_of_attempts = 20
 
