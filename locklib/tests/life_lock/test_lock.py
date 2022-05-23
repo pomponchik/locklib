@@ -14,6 +14,30 @@ def test_release_unlocked():
         lock.release()
 
 
+def test_normal_using():
+    number_of_threads = 5
+    number_of_attempts_per_thread = 100000
+
+    lock = LifeLock()
+    index = 0
+
+    def function():
+        nonlocal index
+
+        for _ in range(number_of_attempts_per_thread):
+            with lock:
+                index += 1
+
+    threads = [Thread(target=function) for _ in range(number_of_threads)]
+
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+
+    assert index == number_of_threads * number_of_attempts_per_thread
+
+
 @pytest.mark.timeout(1)
 def test_raise_when_simple_deadlock():
     number_of_attempts = 50
