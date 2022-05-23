@@ -8,8 +8,8 @@ from locklib.errors import DeadLockError
 
 
 @pytest.mark.timeout(1)
-def test_raise_when_deadlock():
-    number_of_attempts = 20
+def test_raise_when_simple_deadlock():
+    number_of_attempts = 50
 
     lock_1 = LifeLock()
     lock_2 = LifeLock()
@@ -17,23 +17,32 @@ def test_raise_when_deadlock():
     queue = Queue()
 
     for _ in range(number_of_attempts):
+        flag = False
         def function_1():
+            nonlocal flag
             try:
                 while True:
                     with lock_1:
                         with lock_2:
-                            pass
+                            if flag:
+                                break
             except DeadLockError as e:
+                flag = True
                 queue.put(True)
+                raise e
 
         def function_2():
+            nonlocal flag
             try:
                 while True:
                     with lock_2:
                         with lock_1:
-                            pass
+                            if flag:
+                                break
             except DeadLockError as e:
+                flag = True
                 queue.put(True)
+                raise e
 
 
         thread_1 = Thread(target=function_1)

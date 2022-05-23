@@ -14,29 +14,45 @@ class LifeLock:
 
     def acquire(self):
         id = get_native_id()
+        previous_element_lock = None
 
         with self.lock:
-            self.deque.appendleft(id)
+            with graph.lock:
+                if not len(self.deque):
+                    self.deque.appendleft(id)
+                    self.local_locks[id] = Lock()
+                    self.local_locks[id].acquire()
+                else:
+                    previous_element = self.deque[0]
+                    graph.add_link(id, previous_element)
+                    self.deque.appendleft(id)
+                    self.local_locks[id] = Lock()
+                    self.local_locks[id].acquire()
+                    previous_element_lock = self.local_locks[previous_element]
 
-            self.local_locks[id] = Lock()
+        if previous_element_lock is not None:
+            previous_element_lock.acquire()
 
-            if len(self.deque) > 1:
-                next = self.deque[1]
-                graph.add_link(id, next)
-                self.local_locks[next].acquire()
 
     def release(self):
         id = get_native_id()
 
         with self.lock:
-            self.deque.pop()
-
-            if len(self.deque) >= 1:
-                next = self.deque[-1]
-                graph.delete_link(next, id)
-                self.local_locks[id].release()
-
-            del self.local_locks[id]
+            with graph.lock:
+                if id not in self.local_locks:
+                    raise RuntimeError('Release unlocked lock.')
+                if len(self.deque) == 1:
+                    self.deque.pop()
+                    lock = self.local_locks[id]
+                    del self.local_locks[id]
+                    lock.release()
+                else:
+                    self.deque.pop()
+                    lock = self.local_locks[id]
+                    del self.local_locks[id]
+                    next_element = self.deque[-1]
+                    graph.delete_link(next_element, id)
+                    lock.release()
 
     def __enter__(self):
         self.acquire()
