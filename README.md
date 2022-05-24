@@ -77,7 +77,7 @@ Deadlocks are impossible for this lock!
 If you want to catch the exception, import it from the locklib too:
 
 ```python
->>> from locklib import DeadLockError
+from locklib import DeadLockError
 ```
 
 
