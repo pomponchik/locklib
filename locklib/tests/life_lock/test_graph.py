@@ -18,6 +18,18 @@ def test_multiple_set_and_get():
     assert graph.get_links_from(5) == set()
 
 
+def test_reverse_deleting_of_nodes():
+    graph = LocksGraph()
+
+    graph.add_link(1, 6)
+
+    graph.add_link(6, 3)
+    graph.add_link(6, 4)
+    graph.add_link(6, 5)
+
+    assert len(graph.search_cycles(1, 5)) == 3
+
+
 def test_set_get_delete_and_get():
     graph = LocksGraph()
 
@@ -39,6 +51,7 @@ def test_detect_simple_cycle():
 
     with pytest.raises(DeadLockError):
         graph.add_link(2, 1)
+
 
 def test_detect_difficult_cycle():
     graph = LocksGraph()
