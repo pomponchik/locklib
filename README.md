@@ -83,4 +83,4 @@ from locklib import DeadLockError
 
 ### How it works?
 
-Detecting of deadlocks is making by [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph).
+Detecting of deadlocks based on [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph).
