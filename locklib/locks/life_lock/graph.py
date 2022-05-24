@@ -12,8 +12,13 @@ class LocksGraph:
     def add_link(self, _from, to):
         cycle_with = self.search_cycles(to, _from)
         if cycle_with is not None:
-            cycle_with = ', '.join([str(x) for x in cycle_with])
-            raise DeadLockError(f'A cycle between {_from}th and {to}th threads has been detected. The full path of the cycle: {cycle_with}.')
+            if len(cycle_with) > 2:
+                cycle_with.reverse()
+                cycle_with = ', '.join([str(x) for x in cycle_with])
+                message_tail = f' The full path of the cycle: {cycle_with}.'
+            else:
+                message_tail = ''
+            raise DeadLockError(f'A cycle between {_from}th and {to}th threads has been detected.{message_tail}')
         self.links[_from].add(to)
 
     def delete_link(self, _from, to):
@@ -39,6 +44,8 @@ class LocksGraph:
                 result_of_next_search = self.dfs_search(path, link, target)
                 if result_of_next_search is not None:
                     return result_of_next_search
+
+        path.pop()
 
     def search_cycles(self, _from, to):
         return self.dfs_search([], _from, to)
