@@ -1,7 +1,7 @@
 # locklib
 
 
-Deadlocks are the most terribly enemies of all programmers who are making multithreaded programs. If you are a one of them - maybe this library is helpful for you.
+[Deadlocks](https://en.wikipedia.org/wiki/Deadlock) are the most terribly enemies of all programmers who are making multithreaded programs. If you are a one of them - maybe this library is helpful for you.
 
 
 ### How can i use it?
