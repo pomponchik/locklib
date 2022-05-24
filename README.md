@@ -6,7 +6,7 @@ Deadlocks are the most terribly enemies of all programmers who are making multit
 
 ### How can i use it?
 
-Get the locklib from the pip:
+Get the locklib from the [pip](https://pypi.org/project/locklib/):
 
 ```
 $ pip install locklib
