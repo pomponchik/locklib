@@ -3,6 +3,7 @@
 
 Deadlocks are the most terribly enemies of all programmers who are making multithreaded programs. If you are a one of them - maybe this library is helpful for you.
 
+
 ### How can i use it?
 
 Get the locklib from the pip:
@@ -85,4 +86,7 @@ If you want to catch the exception, import it from the locklib too:
 ... ... print('oops!')
 ```
 
+
 ### How it works?
+
+Detecting of deadlocks is making by [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph).
