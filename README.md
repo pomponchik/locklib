@@ -69,7 +69,7 @@ And... We have an exception like this:
 
 ```
 ...
-locklib.errors.DeadLockError: A cycle between 1970256th and 1970257th threads has been detected. The full path of the cycle: 1970257, 1970256.
+locklib.errors.DeadLockError: A cycle between 1970256th and 1970257th threads has been detected.
 ```
 
 Deadlocks are impossible for this lock!
