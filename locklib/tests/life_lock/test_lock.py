@@ -1,3 +1,4 @@
+from time import sleep
 from queue import Queue
 from threading import Thread, Lock
 
@@ -87,7 +88,7 @@ def test_raise_when_simple_deadlock():
         assert queue.get()
 
 
-@pytest.mark.timeout(5)
+@pytest.mark.timeout(1)
 def test_raise_when_not_so_simple_deadlock():
     number_of_attempts = 50
 
@@ -103,14 +104,15 @@ def test_raise_when_not_so_simple_deadlock():
         lock = Lock()
         def function_1():
             nonlocal flag
+            nonlocal cycles
             try:
                 while True:
                     with lock_1:
+                        sleep(0.0001)
                         with lock_2:
+                            sleep(0.0001)
                             with lock_3:
-                                print(1)
                                 if flag:
-                                    print(11)
                                     break
             except DeadLockError as e:
                 with lock:
@@ -122,14 +124,15 @@ def test_raise_when_not_so_simple_deadlock():
 
         def function_2():
             nonlocal flag
+            nonlocal cycles
             try:
                 while True:
                     with lock_2:
+                        sleep(0.0001)
                         with lock_3:
+                            sleep(0.0001)
                             with lock_1:
-                                print(2)
                                 if flag:
-                                    print(21)
                                     break
             except DeadLockError as e:
                 with lock:
@@ -141,14 +144,15 @@ def test_raise_when_not_so_simple_deadlock():
 
         def function_3():
             nonlocal flag
+            nonlocal cycles
             try:
                 while True:
                     with lock_3:
+                        sleep(0.0001)
                         with lock_1:
+                            sleep(0.0001)
                             with lock_2:
-                                print(3)
                                 if flag:
-                                    print(31)
                                     break
             except DeadLockError as e:
                 with lock:
