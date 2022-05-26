@@ -67,3 +67,27 @@ def test_detect_difficult_cycle():
 
     with pytest.raises(DeadLockError):
         graph.add_link(9, 1)
+
+
+def test_simple_exception_message():
+    graph = LocksGraph()
+
+    graph.add_link(1, 2)
+
+    with pytest.raises(DeadLockError) as e:
+        graph.add_link(2, 1)
+
+    assert str(e.value) == 'A cycle between 2th and 1th threads has been detected.'
+
+
+def test_exception_message_not_so_simple():
+    graph = LocksGraph()
+
+    graph.add_link(1, 2)
+    graph.add_link(2, 3)
+    graph.add_link(3, 4)
+
+    with pytest.raises(DeadLockError) as e:
+        graph.add_link(4, 1)
+
+    assert str(e.value) == 'A cycle between 4th and 1th threads has been detected. The full path of the cycle: 4, 3, 2, 1.'
