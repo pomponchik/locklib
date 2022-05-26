@@ -31,7 +31,7 @@ class LocksGraph:
     def get_links_from(self, _from):
         return self.links[_from]
 
-    def dfs_search(self, path, current_node, target):
+    def dfs(self, path, current_node, target):
         path.append(current_node)
 
         neighbors = self.get_links_from(current_node)
@@ -41,11 +41,11 @@ class LocksGraph:
                 if link == target:
                     path.append(target)
                     return path
-                result_of_next_search = self.dfs_search(path, link, target)
+                result_of_next_search = self.dfs(path, link, target)
                 if result_of_next_search is not None:
                     return result_of_next_search
 
         path.pop()
 
     def search_cycles(self, _from, to):
-        return self.dfs_search([], _from, to)
+        return self.dfs([], _from, to)
