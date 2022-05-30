@@ -1,10 +1,10 @@
 # locklib
 
 
-[Deadlocks](https://en.wikipedia.org/wiki/Deadlock) are the most terribly enemies of all programmers who are making multithreaded programs. If you are a one of them - maybe this library is helpful for you.
+[Deadlocks](https://en.wikipedia.org/wiki/Deadlock) are the most terrible enemies of all programmers who make multithreaded programs. If you are a one of them - this library is going to help you out.
 
 
-### How can i use it?
+### How can I use it?
 
 Get the locklib from the [pip](https://pypi.org/project/locklib/):
 
@@ -12,14 +12,14 @@ Get the locklib from the [pip](https://pypi.org/project/locklib/):
 $ pip install locklib
 ```
 
-And use a lock from this library as a usual [```Lock``` from the standart library](https://docs.python.org/3/library/threading.html#lock-objects):
+And use a lock from this library as a usual [```Lock``` from the standard library](https://docs.python.org/3/library/threading.html#lock-objects):
 
 ```python
 from threading import Thread
-from locklib import LifeLock
+from locklib import SmartLock
 
 
-lock = LifeLock()
+lock = SmartLock()
 counter = 0
 
 def function():
@@ -37,15 +37,15 @@ thread_2.start()
 assert counter == 2000
 ```
 
-In this case the lock helps to us to not get a race condition, as the standart ```Lock```. But! Let's provoke a deadlock and look what happens:
+In this case the lock helps us not to get a race condition, as the standard ```Lock``` does. But! Let's trigger a deadlock and look what happens:
 
 ```python
 from threading import Thread
-from locklib import LifeLock
+from locklib import SmartLock
 
 
-lock_1 = LifeLock()
-lock_2 = LifeLock()
+lock_1 = SmartLock()
+lock_2 = SmartLock()
 
 def function_1():
   while True:
@@ -74,13 +74,13 @@ locklib.errors.DeadLockError: A cycle between 1970256th and 1970257th threads ha
 
 Deadlocks are impossible for this lock!
 
-If you want to catch the exception, import it from the locklib too:
+If you want to catch the exception, import this from the locklib too:
 
 ```python
 from locklib import DeadLockError
 ```
 
 
-### How it works?
+### How does it work?
 
-Detecting of deadlocks based on [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph).
+Deadlock detection based on [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph).
