@@ -16,10 +16,10 @@ And use a lock from this library as a usual [```Lock``` from the standard librar
 
 ```python
 from threading import Thread
-from locklib import LifeLock
+from locklib import SmartLock
 
 
-lock = LifeLock()
+lock = SmartLock()
 counter = 0
 
 def function():
@@ -41,11 +41,11 @@ In this case the lock helps us not to get a race condition, as the standard ```L
 
 ```python
 from threading import Thread
-from locklib import LifeLock
+from locklib import SmartLock
 
 
-lock_1 = LifeLock()
-lock_2 = LifeLock()
+lock_1 = SmartLock()
+lock_2 = SmartLock()
 
 def function_1():
   while True:

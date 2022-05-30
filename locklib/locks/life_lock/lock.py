@@ -6,7 +6,7 @@ from locklib.locks.life_lock.graph import LocksGraph
 
 graph = LocksGraph()
 
-class LifeLock:
+class SmartLock:
     def __init__(self):
         self.lock = Lock()
         self.deque = deque()

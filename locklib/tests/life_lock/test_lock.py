@@ -4,12 +4,12 @@ from threading import Thread, Lock
 
 import pytest
 
-from locklib.locks.life_lock.lock import LifeLock
+from locklib.locks.life_lock.lock import SmartLock
 from locklib.errors import DeadLockError
 
 
 def test_release_unlocked():
-    lock = LifeLock()
+    lock = SmartLock()
 
     with pytest.raises(RuntimeError):
         lock.release()
@@ -19,7 +19,7 @@ def test_normal_using():
     number_of_threads = 5
     number_of_attempts_per_thread = 100000
 
-    lock = LifeLock()
+    lock = SmartLock()
     index = 0
 
     def function():
@@ -43,8 +43,8 @@ def test_normal_using():
 def test_raise_when_simple_deadlock():
     number_of_attempts = 50
 
-    lock_1 = LifeLock()
-    lock_2 = LifeLock()
+    lock_1 = SmartLock()
+    lock_2 = SmartLock()
 
     queue = Queue()
 
@@ -92,9 +92,9 @@ def test_raise_when_simple_deadlock():
 def test_raise_when_not_so_simple_deadlock():
     number_of_attempts = 50
 
-    lock_1 = LifeLock()
-    lock_2 = LifeLock()
-    lock_3 = LifeLock()
+    lock_1 = SmartLock()
+    lock_2 = SmartLock()
+    lock_3 = SmartLock()
 
     queue = Queue()
 
