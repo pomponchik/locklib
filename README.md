@@ -74,7 +74,7 @@ locklib.errors.DeadLockError: A cycle between 1970256th and 1970257th threads ha
 
 Deadlocks are impossible for this lock!
 
-If you want to catch the exception, import it from the locklib too:
+If you want to catch the exception, import this from the locklib too:
 
 ```python
 from locklib import DeadLockError
