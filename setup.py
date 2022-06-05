@@ -7,7 +7,7 @@ requirements = []
 
 setup(
     name="locklib",
-    version="0.0.4",
+    version="0.0.5",
     author="Evgeniy Blinov",
     author_email="zheni-b@yandex.ru",
     description="A wonderful life without deadlocks",
