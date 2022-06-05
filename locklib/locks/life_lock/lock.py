@@ -18,7 +18,7 @@ class SmartLock:
 
         with self.lock:
             with graph.lock:
-                if not len(self.deque):
+                if not self.deque:
                     self.deque.appendleft(id)
                     self.local_locks[id] = Lock()
                     self.local_locks[id].acquire()
@@ -41,18 +41,16 @@ class SmartLock:
             with graph.lock:
                 if id not in self.local_locks:
                     raise RuntimeError('Release unlocked lock.')
-                if len(self.deque) == 1:
-                    self.deque.pop()
-                    lock = self.local_locks[id]
-                    del self.local_locks[id]
-                    lock.release()
-                else:
-                    self.deque.pop()
-                    lock = self.local_locks[id]
-                    del self.local_locks[id]
+
+                self.deque.pop()
+                lock = self.local_locks[id]
+                del self.local_locks[id]
+
+                if len(self.deque) != 0:
                     next_element = self.deque[-1]
                     graph.delete_link(next_element, id)
-                    lock.release()
+                
+                lock.release()
 
     def __enter__(self):
         self.acquire()
