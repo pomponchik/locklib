@@ -1,13 +1,14 @@
 from threading import Lock, get_native_id
 from collections import deque
 
-from locklib.locks.life_lock.graph import LocksGraph
+from locklib.locks.smart_lock.graph import LocksGraph
 
 
 graph = LocksGraph()
 
 class SmartLock:
-    def __init__(self):
+    def __init__(self, local_graph=graph):
+        self.graph = local_graph
         self.lock = Lock()
         self.deque = deque()
         self.local_locks = {}
@@ -17,14 +18,14 @@ class SmartLock:
         previous_element_lock = None
 
         with self.lock:
-            with graph.lock:
+            with self.graph.lock:
                 if not self.deque:
                     self.deque.appendleft(id)
                     self.local_locks[id] = Lock()
                     self.local_locks[id].acquire()
                 else:
                     previous_element = self.deque[0]
-                    graph.add_link(id, previous_element)
+                    self.graph.add_link(id, previous_element)
                     self.deque.appendleft(id)
                     self.local_locks[id] = Lock()
                     self.local_locks[id].acquire()
@@ -38,7 +39,7 @@ class SmartLock:
         id = get_native_id()
 
         with self.lock:
-            with graph.lock:
+            with self.graph.lock:
                 if id not in self.local_locks:
                     raise RuntimeError('Release unlocked lock.')
 
@@ -48,8 +49,8 @@ class SmartLock:
 
                 if len(self.deque) != 0:
                     next_element = self.deque[-1]
-                    graph.delete_link(next_element, id)
-                
+                    self.graph.delete_link(next_element, id)
+
                 lock.release()
 
     def __enter__(self):
