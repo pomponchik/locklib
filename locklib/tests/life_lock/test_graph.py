@@ -1,6 +1,6 @@
 import pytest
 
-from locklib.locks.life_lock.graph import LocksGraph
+from locklib.locks.smart_lock.graph import LocksGraph
 from locklib.errors import DeadLockError
 
 

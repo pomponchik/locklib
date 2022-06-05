@@ -1,7 +1,7 @@
 from threading import Lock, get_native_id
 from collections import deque
 
-from locklib.locks.life_lock.graph import LocksGraph
+from locklib.locks.smart_lock.graph import LocksGraph
 
 
 graph = LocksGraph()
@@ -49,7 +49,7 @@ class SmartLock:
                 if len(self.deque) != 0:
                     next_element = self.deque[-1]
                     graph.delete_link(next_element, id)
-                
+
                 lock.release()
 
     def __enter__(self):
