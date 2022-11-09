@@ -22,7 +22,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-       pip install -r requirements_dev.txt
+        if [ "$RUNNER_OS" != "windows-latest" ]; then
+          pip install -r requirements_dev.txt
+        else
+          python.exe -m pip install --upgrade pip
+          pip install -r requirements_dev.txt
+        fi
 
     - name: Install package
       run: python3 setup.py install
