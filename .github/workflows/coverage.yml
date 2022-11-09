@@ -23,7 +23,7 @@ jobs:
     - name: Install dependencies
       shell: bash
       run: |
-        if [ "$RUNNER_OS" != "windows-latest" ]; then
+        if [ runner.os != 'Windows' ]; then
           pip install -r requirements_dev.txt
         else
           python.exe -m pip install --upgrade pip
