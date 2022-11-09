@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/pomponchik/locklib/branch/develop/graph/badge.svg)](https://codecov.io/gh/pomponchik/locklib)
+[![codecov](https://codecov.io/gh/pomponchik/locklib/branch/master/graph/badge.svg)](https://codecov.io/gh/pomponchik/locklib)
 [![PyPI downloads](https://img.shields.io/pypi/dm/locklib.svg)](https://pypistats.org/packages/locklib)
 
 # locklib
