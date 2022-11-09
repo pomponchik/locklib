@@ -37,7 +37,7 @@ jobs:
     - name: Upload reports to codecov
       env:
         CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
-      if: runner.os == 'macOS'
+      if: runner.os == 'Linux'
       run: | 
        curl -Os https://uploader.codecov.io/latest/macos/codecov
        find . -iregex "codecov.*"
