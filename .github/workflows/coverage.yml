@@ -7,8 +7,6 @@ jobs:
   build:
 
     runs-on: ${{ matrix.os }}
-    shell:
-      bash
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -23,6 +21,7 @@ jobs:
 
 
     - name: Install dependencies
+      shell: bash
       run: |
         if [ "$RUNNER_OS" != "windows-latest" ]; then
           pip install -r requirements_dev.txt
