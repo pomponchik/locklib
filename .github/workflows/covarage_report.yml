@@ -11,15 +11,12 @@ jobs:
       run:
         working-directory: ./
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'
-    - name: Install requirements
-      run: pip install -r requirements_dev.txt
-    - name: Run tests and collect coverage
-      run: pytest --cov .
-    - name: Upload coverage reports to Codecov with GitHub Action
-      uses: codecov/codecov-action@v3
-      with:
-        flags: backend
+      - uses: actions/checkout@master
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          files: ./coverage1.xml,./coverage2.xml # optional
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
