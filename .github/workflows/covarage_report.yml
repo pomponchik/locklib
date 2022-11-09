@@ -31,7 +31,7 @@ jobs:
       run: python3 setup.py install
 
     - name: Run tests and show coverage on the command line
-      run: coverage run tests.py && coverage report -m
+      run: coverage run --source=locklib --omit="*tests*" -m pytest --cache-clear && coverage report -m
 
     - name: Upload reports to codecov
       env:
