@@ -1,8 +1,11 @@
-[![codecov](https://codecov.io/gh/pomponchik/locklib/branch/main/graph/badge.svg)](https://codecov.io/gh/pomponchik/locklib)
-[![PyPI downloads](https://img.shields.io/pypi/dm/locklib.svg)](https://pypistats.org/packages/locklib)
-
 # locklib
 
+[![Downloads](https://static.pepy.tech/badge/locklib/month)](https://pepy.tech/project/locklib)
+[![Downloads](https://static.pepy.tech/badge/locklib)](https://pepy.tech/project/locklib)
+[![codecov](https://codecov.io/gh/pomponchik/locklib/graph/badge.svg?token=O9G4FD8QFC)](https://codecov.io/gh/pomponchik/locklib)
+[![Test-Package](https://github.com/pomponchik/locklib/actions/workflows/tests_and_coverage.yml/badge.svg)](https://github.com/pomponchik/locklib/actions/workflows/tests_and_coverage.yml)
+[![Python versions](https://img.shields.io/pypi/pyversions/locklib.svg)](https://pypi.python.org/pypi/locklib)
+[![PyPI version](https://badge.fury.io/py/locklib.svg)](https://badge.fury.io/py/locklib)
 
 [Deadlocks](https://en.wikipedia.org/wiki/Deadlock) are the most terrible enemies of all programmers who make multithreaded programs. If you are a one of them - this library is going to help you out.
 
