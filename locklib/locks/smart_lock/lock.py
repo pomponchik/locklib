@@ -1,4 +1,8 @@
-from threading import Lock, get_native_id
+try:
+    from threading import Lock, get_native_id
+except ImportError:  # get_native_id is available only since python 3.8 
+    from threading import Lock, get_ident as get_native_id
+
 from collections import deque
 
 from locklib.locks.smart_lock.graph import LocksGraph
