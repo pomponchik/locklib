@@ -1,5 +1,5 @@
 try:
-    from threading import Lock, get_native_id
+    from threading import Lock, get_native_id  # type: ignore
 except ImportError:  # pragma: no cover
     from threading import Lock, get_ident as get_native_id  # get_native_id is available only since python 3.8
 
