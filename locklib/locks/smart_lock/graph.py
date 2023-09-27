@@ -1,13 +1,13 @@
 from threading import Lock
 from collections import defaultdict
-from typing import List, Set, Optional
+from typing import List, Set, DefaultDict, Optional
 
 from locklib.errors import DeadLockError
 
 
 class LocksGraph:
     def __init__(self):
-        self.links: defaultdict[int, Set[int]] = defaultdict(set)
+        self.links: DefaultDict[int, Set[int]] = defaultdict(set)
         self.lock: Lock = Lock()
 
     def add_link(self, _from: int, to: int) -> None:
