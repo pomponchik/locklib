@@ -25,7 +25,7 @@ jobs:
 
     - name: Run mypy
       shell: bash
-      run: mypy locklib
+      run: mypy locklib --check-untyped-defs
 
     - name: Run ruff
       shell: bash
