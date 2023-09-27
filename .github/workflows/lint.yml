@@ -25,8 +25,8 @@ jobs:
 
     - name: Run mypy
       shell: bash
-      run: mypy cantok
-    
+      run: mypy locklib
+
     - name: Run ruff
       shell: bash
       run: ruff locklib
