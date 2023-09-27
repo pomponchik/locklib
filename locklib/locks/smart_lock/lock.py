@@ -11,13 +11,13 @@ from locklib.locks.smart_lock.graph import LocksGraph
 graph = LocksGraph()
 
 class SmartLock:
-    def __init__(self, local_graph=graph):
+    def __init__(self, local_graph: LocksGraph = graph) -> None:
         self.graph = local_graph
         self.lock = Lock()
         self.deque = deque()
         self.local_locks = {}
 
-    def acquire(self):
+    def acquire(self) -> None:
         id = get_native_id()
         previous_element_lock = None
 
@@ -39,7 +39,7 @@ class SmartLock:
             previous_element_lock.acquire()
 
 
-    def release(self):
+    def release(self) -> None:
         id = get_native_id()
 
         with self.lock:
