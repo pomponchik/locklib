@@ -15,8 +15,8 @@ class LocksGraph:
         if cycle_with is not None:
             if len(cycle_with) > 2:
                 cycle_with.reverse()
-                cycle_with = ', '.join([str(x) for x in cycle_with])
-                message_tail = f' The full path of the cycle: {cycle_with}.'
+                listing_cycle_with = ', '.join([str(x) for x in cycle_with])
+                message_tail = f' The full path of the cycle: {listing_cycle_with}.'
             else:
                 message_tail = ''
             raise DeadLockError(f'A cycle between {_from}th and {to}th threads has been detected.{message_tail}')
@@ -47,6 +47,7 @@ class LocksGraph:
                     return result_of_next_search
 
         path.pop()
+        return None
 
     def search_cycles(self, _from: int, to: int) -> Optional[List[int]]:
         return self.dfs([], _from, to)

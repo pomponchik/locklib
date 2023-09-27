@@ -4,6 +4,7 @@ except ImportError:  # pragma: no cover
     from threading import Lock, get_ident as get_native_id  # get_native_id is available only since python 3.8
 
 from collections import deque
+from typing import Deque, Dict
 
 from locklib.locks.smart_lock.graph import LocksGraph
 
@@ -12,10 +13,10 @@ graph = LocksGraph()
 
 class SmartLock:
     def __init__(self, local_graph: LocksGraph = graph) -> None:
-        self.graph = local_graph
-        self.lock = Lock()
-        self.deque = deque()
-        self.local_locks = {}
+        self.graph: LocksGraph = local_graph
+        self.lock: Lock = Lock()
+        self.deque: Deque[int] = deque()
+        self.local_locks: Dict[int, Lock] = {}
 
     def acquire(self) -> None:
         id = get_native_id()
@@ -37,7 +38,6 @@ class SmartLock:
 
         if previous_element_lock is not None:
             previous_element_lock.acquire()
-
 
     def release(self) -> None:
         id = get_native_id()
