@@ -1,2 +1,2 @@
-class DeadLockError(ValueError):
+class DeadLockError(Exception):
     pass
