@@ -6,6 +6,7 @@
 [![Test-Package](https://github.com/pomponchik/locklib/actions/workflows/tests_and_coverage.yml/badge.svg)](https://github.com/pomponchik/locklib/actions/workflows/tests_and_coverage.yml)
 [![Python versions](https://img.shields.io/pypi/pyversions/locklib.svg)](https://pypi.python.org/pypi/locklib)
 [![PyPI version](https://badge.fury.io/py/locklib.svg)](https://badge.fury.io/py/locklib)
+[![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 [Deadlocks](https://en.wikipedia.org/wiki/Deadlock) are the most terrible enemies of all programmers who make multithreaded programs. If you are a one of them - this library is going to help you out.
