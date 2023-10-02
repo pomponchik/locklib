@@ -8,7 +8,7 @@ requirements = []
 
 setup(
     name='locklib',
-    version='0.0.8',
+    version='0.0.9',
     author='Evgeniy Blinov',
     author_email='zheni-b@yandex.ru',
     description='A wonderful life without deadlocks',
