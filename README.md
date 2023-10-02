@@ -1,4 +1,4 @@
-# locklib
+![logo](https://raw.githubusercontent.com/pomponchik/locklib/develop/docs/assets/logo_2.png)
 
 [![Downloads](https://static.pepy.tech/badge/locklib/month)](https://pepy.tech/project/locklib)
 [![Downloads](https://static.pepy.tech/badge/locklib)](https://pepy.tech/project/locklib)
