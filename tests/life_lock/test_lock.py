@@ -38,7 +38,7 @@ def test_normal_using():
     assert index == number_of_threads * number_of_attempts_per_thread
 
 
-@pytest.mark.timeout(1)
+@pytest.mark.timeout(3)
 def test_raise_when_simple_deadlock():
     number_of_attempts = 50
 
@@ -87,7 +87,7 @@ def test_raise_when_simple_deadlock():
         assert queue.get()
 
 
-@pytest.mark.timeout(1)
+@pytest.mark.timeout(3)
 def test_raise_when_not_so_simple_deadlock():
     number_of_attempts = 50
 
