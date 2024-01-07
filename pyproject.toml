@@ -4,7 +4,7 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'locklib'
-version = '0.0.10'
+version = '0.0.11'
 authors = [
   { name='Evgeniy Blinov', email='zheni-b@yandex.ru' },
 ]
@@ -26,6 +26,9 @@ classifiers = [
   'Topic :: Software Development :: Libraries',
   'Intended Audience :: Developers',
 ]
+
+[tool.setuptools.package-data]
+"locklib" = ["py.typed"]
 
 [project.urls]
 'Source' = 'https://github.com/pomponchik/locklib'

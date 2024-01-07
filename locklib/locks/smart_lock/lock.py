@@ -1,10 +1,11 @@
 try:
-    from threading import Lock, get_native_id  # type: ignore
+    from threading import Lock, get_native_id  # type: ignore[attr-defined]
 except ImportError:  # pragma: no cover
     from threading import Lock, get_ident as get_native_id  # get_native_id is available only since python 3.8
 
 from collections import deque
-from typing import Deque, Dict
+from typing import Type, Deque, Dict
+from types import TracebackType
 
 from locklib.locks.smart_lock.graph import LocksGraph
 
@@ -57,8 +58,8 @@ class SmartLock:
 
                 lock.release()
 
-    def __enter__(self):
+    def __enter__(self) -> None:
         self.acquire()
 
-    def __exit__(self, exception_type, exception_value, traceback):
+    def __exit__(self, exception_type: Type[BaseException], exception_value: BaseException, traceback: TracebackType) -> None:
         self.release()

@@ -6,7 +6,7 @@ from locklib.errors import DeadLockError
 
 
 class LocksGraph:
-    def __init__(self):
+    def __init__(self) -> None:
         self.links: DefaultDict[int, Set[int]] = defaultdict(set)
         self.lock: Lock = Lock()
 
