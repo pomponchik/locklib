@@ -27,6 +27,9 @@ classifiers = [
   'Intended Audience :: Developers',
 ]
 
+[tool.setuptools.package-data]
+"locklib" = ["py.typed"]
+
 [project.urls]
 'Source' = 'https://github.com/pomponchik/locklib'
 'Tracker' = 'https://github.com/pomponchik/locklib/issues'
