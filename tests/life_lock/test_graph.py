@@ -44,6 +44,24 @@ def test_set_get_delete_and_get():
     assert graph.get_links_from(1) == {3, 4}
 
 
+def test_delete_from_empty_graph():
+    graph = LocksGraph()
+
+    graph.delete_link(1, 2)
+
+    assert not graph.links
+
+
+def test_delete_non_existing_link():
+    graph = LocksGraph()
+
+    graph.add_link(1, 2)
+
+    graph.delete_link(1, 3)
+
+    assert graph.get_links_from(1) == {2,}
+
+
 def test_detect_simple_cycle():
     graph = LocksGraph()
 
