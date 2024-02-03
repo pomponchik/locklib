@@ -10,3 +10,4 @@ build
 .mutmut-cache
 html
 .coverage
+htmlcov
