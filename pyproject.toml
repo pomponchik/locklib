@@ -30,6 +30,10 @@ classifiers = [
 [tool.setuptools.package-data]
 "locklib" = ["py.typed"]
 
+[tool.mutmut]
+paths_to_mutate="locklib"
+runner="pytest"
+
 [project.urls]
 'Source' = 'https://github.com/pomponchik/locklib'
 'Tracker' = 'https://github.com/pomponchik/locklib/issues'
