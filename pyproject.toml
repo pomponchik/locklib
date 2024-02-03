@@ -4,7 +4,7 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'locklib'
-version = '0.0.11'
+version = '0.0.12'
 authors = [
   { name='Evgeniy Blinov', email='zheni-b@yandex.ru' },
 ]
@@ -29,6 +29,10 @@ classifiers = [
 
 [tool.setuptools.package-data]
 "locklib" = ["py.typed"]
+
+[tool.mutmut]
+paths_to_mutate="locklib"
+runner="pytest"
 
 [project.urls]
 'Source' = 'https://github.com/pomponchik/locklib'

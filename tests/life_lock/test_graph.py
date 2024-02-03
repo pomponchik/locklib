@@ -44,6 +44,24 @@ def test_set_get_delete_and_get():
     assert graph.get_links_from(1) == {3, 4}
 
 
+def test_delete_from_empty_graph():
+    graph = LocksGraph()
+
+    graph.delete_link(1, 2)
+
+    assert not graph.links
+
+
+def test_delete_non_existing_link():
+    graph = LocksGraph()
+
+    graph.add_link(1, 2)
+
+    graph.delete_link(1, 3)
+
+    assert graph.get_links_from(1) == {2,}
+
+
 def test_detect_simple_cycle():
     graph = LocksGraph()
 
@@ -91,3 +109,15 @@ def test_exception_message_not_so_simple():
         graph.add_link(4, 1)
 
     assert str(e.value) == 'A cycle between 4th and 1th threads has been detected. The full path of the cycle: 4, 3, 2, 1.'
+
+
+def test_exception_message_not_so_simple_2():
+    graph = LocksGraph()
+
+    graph.add_link(1, 2)
+    graph.add_link(2, 3)
+
+    with pytest.raises(DeadLockError) as e:
+        graph.add_link(3, 1)
+
+    assert str(e.value) == 'A cycle between 3th and 1th threads has been detected. The full path of the cycle: 3, 2, 1.'

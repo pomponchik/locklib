@@ -1,3 +1,4 @@
+import re
 from time import sleep
 from queue import Queue
 from threading import Thread, Lock
@@ -7,10 +8,14 @@ import pytest
 from locklib import SmartLock, DeadLockError
 
 
+def full_match_regex(string_to_match: str) -> str:
+    return '^' + re.escape(string_to_match) + '$'
+
+
 def test_release_unlocked():
     lock = SmartLock()
 
-    with pytest.raises(RuntimeError):
+    with pytest.raises(RuntimeError, match=full_match_regex('Release unlocked lock.')):
         lock.release()
 
 
