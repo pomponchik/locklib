@@ -91,3 +91,15 @@ def test_exception_message_not_so_simple():
         graph.add_link(4, 1)
 
     assert str(e.value) == 'A cycle between 4th and 1th threads has been detected. The full path of the cycle: 4, 3, 2, 1.'
+
+
+def test_exception_message_not_so_simple_2():
+    graph = LocksGraph()
+
+    graph.add_link(1, 2)
+    graph.add_link(2, 3)
+
+    with pytest.raises(DeadLockError) as e:
+        graph.add_link(3, 1)
+
+    assert str(e.value) == 'A cycle between 3th and 1th threads has been detected. The full path of the cycle: 3, 2, 1.'
