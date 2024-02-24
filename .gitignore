@@ -11,3 +11,4 @@ build
 html
 .coverage
 htmlcov
+test.py
