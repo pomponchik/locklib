@@ -11,7 +11,7 @@
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-It contains several useful additions to the standard thread synchronization tools, such as lock protocols and loks with advanced functionality.
+It contains several useful additions to the standard thread synchronization tools, such as lock protocols and locks with advanced functionality.
 
 [Deadlocks](https://en.wikipedia.org/wiki/Deadlock) are the most terrible enemies of all programmers who make multithreaded programs. If you are a one of them - this library is going to help you out.
 
@@ -105,9 +105,9 @@ print(isinstance(Lock(), AsyncContextLockProtocol)) # True
 If you use type hints and static verification tools like [mypy](https://github.com/python/mypy), we highly recommend using the narrowest of the presented categories for lock protocols, which describe the requirements for your locales.
 
 
-### How can I use it?
+## `SmartLock` - deadlock is impossible with it
 
-And use a lock from this library as a usual [```Lock``` from the standard library](https://docs.python.org/3/library/threading.html#lock-objects):
+`locklib` contains a lock that cannot get into the deadlock - `SmartLock`, based on [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph). You can use it as a usual [```Lock``` from the standard library](https://docs.python.org/3/library/threading.html#lock-objects). Let's check that it can protect us from the [race condition](https://en.wikipedia.org/wiki/Race_condition) in the same way:
 
 ```python
 from threading import Thread
@@ -132,7 +132,7 @@ thread_2.start()
 assert counter == 2000
 ```
 
-In this case the lock helps us not to get a race condition, as the standard ```Lock``` does. But! Let's trigger a deadlock and look what happens:
+Yeah, in this case the lock helps us not to get a race condition, as the standard ```Lock``` does. But! Let's trigger a deadlock and look what happens:
 
 ```python
 from threading import Thread
@@ -169,13 +169,8 @@ locklib.errors.DeadLockError: A cycle between 1970256th and 1970257th threads ha
 
 Deadlocks are impossible for this lock!
 
-If you want to catch the exception, import this from the locklib too:
+If you want to catch the exception, import this from the `locklib` too:
 
 ```python
 from locklib import DeadLockError
 ```
-
-
-### How does it work?
-
-Deadlock detection based on [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph).
