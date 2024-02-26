@@ -56,7 +56,7 @@ def test_just_contextmanager_is_not_context_lock():
     assert not isinstance(context_manager(), ContextLockProtocol)
 
 
-def test_not_implemented_methods_for_lock_protocol():
+def test_not_implemented_methods_for_context_lock_protocol():
     class ContextLockProtocolImplementation(ContextLockProtocol):
         pass
 

@@ -46,7 +46,7 @@ def test_just_async_contextmanager_is_not_async_context_lock():
     assert not isinstance(context_manager(), AsyncContextLockProtocol)
 
 
-def test_not_implemented_methods_for_lock_protocol():
+def test_not_implemented_methods_for_async_context_lock_protocol():
     class AsyncContextLockProtocolImplementation(AsyncContextLockProtocol):
         pass
 
