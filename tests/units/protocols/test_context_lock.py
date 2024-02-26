@@ -5,6 +5,7 @@ from asyncio import Lock as ALock
 from contextlib import contextmanager
 
 import pytest
+import full_match
 
 from locklib import ContextLockProtocol, SmartLock
 
@@ -53,3 +54,20 @@ def test_just_contextmanager_is_not_context_lock():
         yield 'kek'
 
     assert not isinstance(context_manager(), ContextLockProtocol)
+
+
+def test_not_implemented_methods_for_lock_protocol():
+    class ContextLockProtocolImplementation(ContextLockProtocol):
+        pass
+
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+        ContextLockProtocolImplementation().acquire()
+
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+        ContextLockProtocolImplementation().release()
+
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+        ContextLockProtocolImplementation().__enter__()
+
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+        ContextLockProtocolImplementation().__exit__(None, None, None)
