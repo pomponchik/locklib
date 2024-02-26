@@ -30,3 +30,7 @@ jobs:
     - name: Run ruff
       shell: bash
       run: ruff locklib
+
+    - name: Run ruff for tests
+      shell: bash
+      run: ruff tests
