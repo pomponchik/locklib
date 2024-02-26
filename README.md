@@ -13,14 +13,12 @@
 
 It contains several useful additions to the standard thread synchronization tools, such as lock protocols and locks with advanced functionality.
 
-[Deadlocks](https://en.wikipedia.org/wiki/Deadlock) are the most terrible enemies of all programmers who make multithreaded programs. If you are a one of them - this library is going to help you out.
-
 
 ## Table of contents
 
 - [**Installation**](#installation)
 - [**Lock protocols**](#lock-protocols)
-- [**SmartLock - deadlock is impossible with it**](#smartLock-deadlock-is-impossible-with-it)
+- [**SmartLock - deadlock is impossible with it**](#smartlock---deadlock-is-impossible-with-it)
 
 
 ## Installation
