@@ -107,7 +107,7 @@ If you use type hints and static verification tools like [mypy](https://github.c
 
 ## `SmartLock` - deadlock is impossible with it
 
-`locklib` contains a lock that cannot get into the deadlock - `SmartLock`, based on [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph). You can use it as a usual [```Lock``` from the standard library](https://docs.python.org/3/library/threading.html#lock-objects). Let's check that it can protect us from the [race condition](https://en.wikipedia.org/wiki/Race_condition) in the same way:
+`locklib` contains a lock that cannot get into the [deadlock](https://en.wikipedia.org/wiki/Deadlock) - `SmartLock`, based on [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph). You can use it as a usual [```Lock``` from the standard library](https://docs.python.org/3/library/threading.html#lock-objects). Let's check that it can protect us from the [race condition](https://en.wikipedia.org/wiki/Race_condition) in the same way:
 
 ```python
 from threading import Thread
