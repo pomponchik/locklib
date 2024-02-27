@@ -8,7 +8,7 @@ version = '0.0.14'
 authors = [
   { name='Evgeniy Blinov', email='zheni-b@yandex.ru' },
 ]
-description = 'A wonderful life without deadlocks'
+description = 'When there are not enough locks from the standard library'
 readme = 'README.md'
 requires-python = '>=3.7'
 classifiers = [
