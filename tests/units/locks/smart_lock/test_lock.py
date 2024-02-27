@@ -1,4 +1,3 @@
-import re
 from time import sleep
 from queue import Queue
 from threading import Thread, Lock

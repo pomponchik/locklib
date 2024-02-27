@@ -11,18 +11,101 @@
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-[Deadlocks](https://en.wikipedia.org/wiki/Deadlock) are the most terrible enemies of all programmers who make multithreaded programs. If you are a one of them - this library is going to help you out.
+It contains several useful additions to the standard thread synchronization tools, such as lock protocols and locks with advanced functionality.
 
 
-### How can I use it?
+## Table of contents
 
-Get the locklib from the [pip](https://pypi.org/project/locklib/):
+- [**Installation**](#installation)
+- [**Lock protocols**](#lock-protocols)
+- [**SmartLock - deadlock is impossible with it**](#smartlock---deadlock-is-impossible-with-it)
+
+
+## Installation
+
+Get the `locklib` from the [pypi](https://pypi.org/project/locklib/):
+
+```bash
+pip install locklib
+```
+
+... or directly from git:
+
+```bash
+pip install git+https://github.com/pomponchik/locklib.git
+```
+
+You can also quickly try out this and other packages without having to install using [instld](https://github.com/pomponchik/instld).
+
+
+## Lock protocols
+
+Protocols are needed so that you can write typed code without being bound to specific classes. Protocols from this library allow you to "equalize" locks from the standard library and third-party locks, including those provided by this library.
+
+We consider the basic characteristic of the lock protocol to be the presence of two methods for an object:
+
+```python
+def acquire() -> None: pass
+def release() -> None: pass
+```
+
+All the locks from the standard library correspond to this, as well as the locks presented in this one.
+
+To check for compliance with this minimum standard, `locklib` contains the `LockProtocol`. You can check for yourself that all the locks match it:
+
+```python
+from multiprocessing import Lock as MLock
+from threading import Lock as TLock, RLock as TRLock
+from asyncio import Lock as ALock
+
+from locklib import SmartLock, LockProtocol
+
+print(isinstance(MLock(), LockProtocol)) # True
+print(isinstance(TLock(), LockProtocol)) # True
+print(isinstance(TRLock(), LockProtocol)) # True
+print(isinstance(ALock(), LockProtocol)) # True
+print(isinstance(SmartLock(), LockProtocol)) # True
+```
+
+However! Most idiomatic python code using locks uses them as context managers. If your code is like that too, you can use one of the two inheritors of the regular `LockProtocol`: `ContextLockProtocol` or `AsyncContextLockProtocol`. Thus, the protocol inheritance hierarchy looks like this:
 
 ```
-$ pip install locklib
+LockProtocol
+ ├── ContextLockProtocol
+ └── AsyncContextLockProtocol
 ```
 
-And use a lock from this library as a usual [```Lock``` from the standard library](https://docs.python.org/3/library/threading.html#lock-objects):
+`ContextLockProtocol` describes the objects described by `LockProtocol`, which are also [context managers](https://docs.python.org/3/library/stdtypes.html#typecontextmanager). `AsyncContextLockProtocol`, by analogy, describes objects that are instances of `LockProtocol`, as well as [asynchronous context managers](https://docs.python.org/3/reference/datamodel.html#async-context-managers).
+
+Almost all the locks from the standard library are instances of `ContextLockProtocol`, as well as `SmartLock`.
+
+```python
+from multiprocessing import Lock as MLock
+from threading import Lock as TLock, RLock as TRLock
+
+from locklib import SmartLock, ContextLockProtocol
+
+print(isinstance(MLock(), ContextLockProtocol)) # True
+print(isinstance(TLock(), ContextLockProtocol)) # True
+print(isinstance(TRLock(), ContextLockProtocol)) # True
+print(isinstance(SmartLock(), ContextLockProtocol)) # True
+```
+
+However, the [`Lock` from asyncio](https://docs.python.org/3/library/asyncio-sync.html#asyncio.Lock) belongs to a separate category and `AsyncContextLockProtocol` is needed to describe it:
+
+```python
+from asyncio import Lock
+from locklib import AsyncContextLockProtocol
+
+print(isinstance(Lock(), AsyncContextLockProtocol)) # True
+```
+
+If you use type hints and static verification tools like [mypy](https://github.com/python/mypy), we highly recommend using the narrowest of the presented categories for lock protocols, which describe the requirements for your locales.
+
+
+## `SmartLock` - deadlock is impossible with it
+
+`locklib` contains a lock that cannot get into the [deadlock](https://en.wikipedia.org/wiki/Deadlock) - `SmartLock`, based on [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph). You can use it as a usual [```Lock``` from the standard library](https://docs.python.org/3/library/threading.html#lock-objects). Let's check that it can protect us from the [race condition](https://en.wikipedia.org/wiki/Race_condition) in the same way:
 
 ```python
 from threading import Thread
@@ -47,7 +130,7 @@ thread_2.start()
 assert counter == 2000
 ```
 
-In this case the lock helps us not to get a race condition, as the standard ```Lock``` does. But! Let's trigger a deadlock and look what happens:
+Yeah, in this case the lock helps us not to get a race condition, as the standard ```Lock``` does. But! Let's trigger a deadlock and look what happens:
 
 ```python
 from threading import Thread
@@ -84,13 +167,8 @@ locklib.errors.DeadLockError: A cycle between 1970256th and 1970257th threads ha
 
 Deadlocks are impossible for this lock!
 
-If you want to catch the exception, import this from the locklib too:
+If you want to catch the exception, import this from the `locklib` too:
 
 ```python
 from locklib import DeadLockError
 ```
-
-
-### How does it work?
-
-Deadlock detection based on [Wait-for Graph](https://en.wikipedia.org/wiki/Wait-for_graph).
