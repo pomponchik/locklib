@@ -25,6 +25,7 @@ classifiers = [
   'License :: OSI Approved :: MIT License',
   'Topic :: Software Development :: Libraries',
   'Intended Audience :: Developers',
+  'Typing :: Typed',
 ]
 
 [tool.setuptools.package-data]
