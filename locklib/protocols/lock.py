@@ -8,7 +8,9 @@ from typing import Any
 @runtime_checkable
 class LockProtocol(Protocol):
     def acquire(self) -> Any:
+        raise NotImplementedError('Do not use the protocol as a lock.')
         return None
 
     def release(self) -> Any:
+        raise NotImplementedError('Do not use the protocol as a lock.')
         return None
