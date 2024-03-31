@@ -46,3 +46,14 @@ def test_not_implemented_methods_for_lock_protocol():
 
     with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
         LockProtocolImplementation().release()
+
+
+def tests_for_type_checking():
+    def some_function(lock: LockProtocol) -> LockProtocol:
+        return lock
+
+    some_function(MLock())
+    some_function(TLock())
+    some_function(TRLock())
+    some_function(ALock())
+    some_function(SmartLock())
