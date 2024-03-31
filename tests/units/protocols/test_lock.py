@@ -18,7 +18,7 @@ from locklib import LockProtocol, SmartLock
         SmartLock(),
     ],
 )
-def test_locks_are_instances_of_lock_protocol(lock):
+def test_locks_are_instances_of_lock_protocol(lock):  # type: ignore[no-untyped-def]
     assert isinstance(lock, LockProtocol)
 
 
@@ -33,11 +33,11 @@ def test_locks_are_instances_of_lock_protocol(lock):
         {},
     ],
 )
-def test_other_objects_are_not_instances_of_lock(other):
+def test_other_objects_are_not_instances_of_lock(other):  # type: ignore[no-untyped-def]
     assert not isinstance(other, LockProtocol)
 
 
-def test_not_implemented_methods_for_lock_protocol():
+def test_not_implemented_methods_for_lock_protocol():  # type: ignore[no-untyped-def]
     class LockProtocolImplementation(LockProtocol):
         pass
 
@@ -48,7 +48,7 @@ def test_not_implemented_methods_for_lock_protocol():
         LockProtocolImplementation().release()
 
 
-def tests_for_type_checking():
+def tests_for_type_checking():  # type: ignore[no-untyped-def]
     def some_function(lock: LockProtocol) -> LockProtocol:
         return lock
 
