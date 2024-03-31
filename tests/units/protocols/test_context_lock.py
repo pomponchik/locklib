@@ -11,7 +11,7 @@ from locklib import ContextLockProtocol, SmartLock
 
 
 @pytest.mark.parametrize(
-    'lock',
+    'lock',  # type: ignore[no-untyped-def, unused-ignore]
     [
         MLock(),
         TLock(),
@@ -24,7 +24,7 @@ def test_locks_are_instances_of_context_lock_protocol(lock):  # type: ignore[no-
 
 
 @pytest.mark.parametrize(
-    'other',
+    'other',  # type: ignore[no-untyped-def, unused-ignore]
     [
         1,
         None,
