@@ -34,7 +34,7 @@ def test_locks_are_instances_of_context_lock_protocol(lock):  # type: ignore[no-
         {},
     ],
 )
-def test_other_objects_are_not_instances_of_context_lock(other):
+def test_other_objects_are_not_instances_of_context_lock(other):  # type: ignore[no-untyped-def]
     assert not isinstance(other, ContextLockProtocol)
 
 
@@ -50,7 +50,7 @@ def test_asyncio_lock_is_not_just_context_lock():  # type: ignore[no-untyped-def
 
 def test_just_contextmanager_is_not_context_lock():  # type: ignore[no-untyped-def]
     @contextmanager
-    def context_manager():
+    def context_manager():  # type: ignore[no-untyped-def]
         yield 'kek'
 
     assert not isinstance(context_manager(), ContextLockProtocol)
@@ -60,25 +60,24 @@ def test_not_implemented_methods_for_context_lock_protocol():  # type: ignore[no
     class ContextLockProtocolImplementation(ContextLockProtocol):
         pass
 
-    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         ContextLockProtocolImplementation().acquire()
 
-    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         ContextLockProtocolImplementation().release()
 
-    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         ContextLockProtocolImplementation().__enter__()
 
-    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         ContextLockProtocolImplementation().__exit__(None, None, None)
 
-def some_function(lock: ContextLockProtocol) -> ContextLockProtocol:
-    return lock
-def tests_for_type_checking():  # type: ignore[no-untyped-def]
 
+def tests_for_type_checking():  # type: ignore[no-untyped-def]
+    def some_function(lock: ContextLockProtocol) -> ContextLockProtocol:
+        return lock
 
     some_function(MLock())
     some_function(TLock())
     some_function(TRLock())
     some_function(SmartLock())
-    some_function(1)

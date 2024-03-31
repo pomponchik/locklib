@@ -41,10 +41,10 @@ def test_not_implemented_methods_for_lock_protocol():  # type: ignore[no-untyped
     class LockProtocolImplementation(LockProtocol):
         pass
 
-    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         LockProtocolImplementation().acquire()
 
-    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         LockProtocolImplementation().release()
 
 
