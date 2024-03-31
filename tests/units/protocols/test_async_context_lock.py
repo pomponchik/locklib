@@ -61,3 +61,10 @@ def test_not_implemented_methods_for_async_context_lock_protocol():  # type: ign
 
     with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         AsyncContextLockProtocolImplementation().__aexit__(None, None, None)
+
+
+def tests_for_type_checking():  # type: ignore[no-untyped-def]
+    def some_function(lock: AsyncContextLockProtocol) -> AsyncContextLockProtocol:
+        return lock
+
+    some_function(ALock())
