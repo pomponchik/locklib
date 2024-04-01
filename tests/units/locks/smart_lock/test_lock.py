@@ -22,7 +22,7 @@ def test_normal_using():
     lock = SmartLock()
     index = 0
 
-    def function():
+    def function() -> None:
         nonlocal index
 
         for _ in range(number_of_attempts_per_thread):

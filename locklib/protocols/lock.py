@@ -3,11 +3,14 @@ try:
 except ImportError:  # pragma: no cover
     from typing_extensions import Protocol, runtime_checkable  # type: ignore[assignment]
 
+from typing import Any
 
 @runtime_checkable
 class LockProtocol(Protocol):
-    def acquire(self) -> None:
+    def acquire(self) -> Any:
         raise NotImplementedError('Do not use the protocol as a lock.')
+        return None
 
-    def release(self) -> None:
+    def release(self) -> Any:
         raise NotImplementedError('Do not use the protocol as a lock.')
+        return None

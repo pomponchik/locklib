@@ -13,6 +13,8 @@ from locklib.protocols.lock import LockProtocol
 class AsyncContextLockProtocol(LockProtocol, Protocol):
     def __aenter__(self) -> Any:
         raise NotImplementedError('Do not use the protocol as a lock.')
+        return None
 
-    def __aexit__(self, exception_type: Optional[Type[BaseException]], exception_value: Optional[BaseException], traceback: Optional[TracebackType]) -> bool:
+    def __aexit__(self, exception_type: Optional[Type[BaseException]], exception_value: Optional[BaseException], traceback: Optional[TracebackType]) -> Any:
         raise NotImplementedError('Do not use the protocol as a lock.')
+        return None

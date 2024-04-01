@@ -6,10 +6,11 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: ['3.7']
+        os: [ubuntu-latest]
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
 
     steps:
     - uses: actions/checkout@v2
@@ -26,6 +27,14 @@ jobs:
     - name: Run mypy
       shell: bash
       run: mypy locklib --strict
+
+    - name: Run mypy for tests
+      shell: bash
+      run: mypy tests
+
+    - name: Run mypy in strict mode for protocols tests
+      shell: bash
+      run: mypy tests/units/protocols/ --strict
 
     - name: Run ruff
       shell: bash

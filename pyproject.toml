@@ -4,11 +4,11 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'locklib'
-version = '0.0.14'
+version = '0.0.15'
 authors = [
   { name='Evgeniy Blinov', email='zheni-b@yandex.ru' },
 ]
-description = 'A wonderful life without deadlocks'
+description = 'When there are not enough locks from the standard library'
 readme = 'README.md'
 requires-python = '>=3.7'
 classifiers = [
@@ -25,6 +25,7 @@ classifiers = [
   'License :: OSI Approved :: MIT License',
   'Topic :: Software Development :: Libraries',
   'Intended Audience :: Developers',
+  'Typing :: Typed',
 ]
 
 [tool.setuptools.package-data]

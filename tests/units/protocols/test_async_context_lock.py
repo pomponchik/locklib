@@ -10,17 +10,17 @@ from locklib import AsyncContextLockProtocol, SmartLock
 
 
 @pytest.mark.parametrize(
-    'lock',
+    'lock',  # type: ignore[no-untyped-def, unused-ignore]
     [
         ALock(),
     ],
 )
-def test_locks_are_instances_of_context_lock_protocol(lock):
+def test_locks_are_instances_of_context_lock_protocol(lock):  # type: ignore[no-untyped-def, unused-ignore]
     assert isinstance(lock, AsyncContextLockProtocol)
 
 
 @pytest.mark.parametrize(
-    'other',
+    'other',  # type: ignore[no-untyped-def, unused-ignore]
     [
         1,
         None,
@@ -34,30 +34,37 @@ def test_locks_are_instances_of_context_lock_protocol(lock):
         SmartLock(),
     ],
 )
-def test_other_objects_are_not_instances_of_context_lock(other):
+def test_other_objects_are_not_instances_of_context_lock(other):  # type: ignore[no-untyped-def, unused-ignore]
     assert not isinstance(other, AsyncContextLockProtocol)
 
 
-def test_just_async_contextmanager_is_not_async_context_lock():
+def test_just_async_contextmanager_is_not_async_context_lock():  # type: ignore[no-untyped-def]
     @asynccontextmanager
-    async def context_manager():
+    async def context_manager():  # type: ignore[no-untyped-def]
         yield 'kek'
 
     assert not isinstance(context_manager(), AsyncContextLockProtocol)
 
 
-def test_not_implemented_methods_for_async_context_lock_protocol():
+def test_not_implemented_methods_for_async_context_lock_protocol():  # type: ignore[no-untyped-def]
     class AsyncContextLockProtocolImplementation(AsyncContextLockProtocol):
         pass
 
-    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         AsyncContextLockProtocolImplementation().acquire()
 
-    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         AsyncContextLockProtocolImplementation().release()
 
-    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         AsyncContextLockProtocolImplementation().__aenter__()
 
-    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):
+    with pytest.raises(NotImplementedError, match=full_match('Do not use the protocol as a lock.')):  # type: ignore[operator]
         AsyncContextLockProtocolImplementation().__aexit__(None, None, None)
+
+
+def tests_for_type_checking():  # type: ignore[no-untyped-def]
+    def some_function(lock: AsyncContextLockProtocol) -> AsyncContextLockProtocol:
+        return lock
+
+    some_function(ALock())
