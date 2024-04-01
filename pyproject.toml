@@ -27,6 +27,12 @@ classifiers = [
   'Intended Audience :: Developers',
   'Typing :: Typed',
 ]
+keywords = [
+    'locks',
+    'mutexes',
+    'threading',
+    'protocols'
+]
 
 [tool.setuptools.package-data]
 "locklib" = ["py.typed"]
