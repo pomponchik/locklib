@@ -156,7 +156,6 @@ def test_raise_when_not_so_simple_deadlock():
                         flag = True
                 queue.put(True)
 
-
         thread_1 = Thread(target=function_1)
         thread_2 = Thread(target=function_2)
         thread_3 = Thread(target=function_3)
