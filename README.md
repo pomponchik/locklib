@@ -111,7 +111,6 @@ If you use type hints and static verification tools like [mypy](https://github.c
 from threading import Thread
 from locklib import SmartLock
 
-
 lock = SmartLock()
 counter = 0
 
@@ -135,7 +134,6 @@ Yeah, in this case the lock helps us not to get a race condition, as the standar
 ```python
 from threading import Thread
 from locklib import SmartLock
-
 
 lock_1 = SmartLock()
 lock_2 = SmartLock()

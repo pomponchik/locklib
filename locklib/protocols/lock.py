@@ -9,8 +9,8 @@ from typing import Any
 class LockProtocol(Protocol):
     def acquire(self) -> Any:
         raise NotImplementedError('Do not use the protocol as a lock.')
-        return None
+        return None  # pragma: no cover
 
     def release(self) -> Any:
         raise NotImplementedError('Do not use the protocol as a lock.')
-        return None
+        return None  # pragma: no cover

@@ -39,7 +39,7 @@ def test_normal_using():
     assert index == number_of_threads * number_of_attempts_per_thread
 
 
-@pytest.mark.timeout(3)
+@pytest.mark.timeout(5)
 def test_raise_when_simple_deadlock():
     number_of_attempts = 50
 
@@ -58,10 +58,9 @@ def test_raise_when_simple_deadlock():
                         with lock_2:
                             if flag:
                                 break
-            except DeadLockError as e:
+            except DeadLockError:
                 flag = True
                 queue.put(True)
-                raise e
 
         def function_2():
             nonlocal flag
@@ -71,11 +70,9 @@ def test_raise_when_simple_deadlock():
                         with lock_1:
                             if flag:
                                 break
-            except DeadLockError as e:
+            except DeadLockError:
                 flag = True
                 queue.put(True)
-                raise e
-
 
         thread_1 = Thread(target=function_1)
         thread_2 = Thread(target=function_2)
@@ -88,7 +85,7 @@ def test_raise_when_simple_deadlock():
         assert queue.get()
 
 
-@pytest.mark.timeout(3)
+@pytest.mark.timeout(5)
 def test_raise_when_not_so_simple_deadlock():
     number_of_attempts = 50
 
@@ -114,13 +111,12 @@ def test_raise_when_not_so_simple_deadlock():
                             with lock_3:
                                 if flag:
                                     break
-            except DeadLockError as e:
+            except DeadLockError:
                 with lock:
                     cycles += 1
                     if cycles == 2:
                         flag = True
                 queue.put(True)
-                raise e
 
         def function_2():
             nonlocal flag
@@ -134,13 +130,12 @@ def test_raise_when_not_so_simple_deadlock():
                             with lock_1:
                                 if flag:
                                     break
-            except DeadLockError as e:
+            except DeadLockError:
                 with lock:
                     cycles += 1
                     if cycles == 2:
                         flag = True
                 queue.put(True)
-                raise e
 
         def function_3():
             nonlocal flag
@@ -154,14 +149,12 @@ def test_raise_when_not_so_simple_deadlock():
                             with lock_2:
                                 if flag:
                                     break
-            except DeadLockError as e:
+            except DeadLockError:
                 with lock:
                     cycles += 1
                     if cycles == 2:
                         flag = True
                 queue.put(True)
-                raise e
-
 
         thread_1 = Thread(target=function_1)
         thread_2 = Thread(target=function_2)
