@@ -58,7 +58,7 @@ def test_raise_when_simple_deadlock():
                         with lock_2:
                             if flag:
                                 break
-            except DeadLockError as e:
+            except DeadLockError:
                 flag = True
                 queue.put(True)
 
@@ -70,7 +70,7 @@ def test_raise_when_simple_deadlock():
                         with lock_1:
                             if flag:
                                 break
-            except DeadLockError as e:
+            except DeadLockError:
                 flag = True
                 queue.put(True)
 
@@ -111,7 +111,7 @@ def test_raise_when_not_so_simple_deadlock():
                             with lock_3:
                                 if flag:
                                     break
-            except DeadLockError as e:
+            except DeadLockError:
                 with lock:
                     cycles += 1
                     if cycles == 2:
@@ -130,7 +130,7 @@ def test_raise_when_not_so_simple_deadlock():
                             with lock_1:
                                 if flag:
                                     break
-            except DeadLockError as e:
+            except DeadLockError:
                 with lock:
                     cycles += 1
                     if cycles == 2:
@@ -149,7 +149,7 @@ def test_raise_when_not_so_simple_deadlock():
                             with lock_2:
                                 if flag:
                                     break
-            except DeadLockError as e:
+            except DeadLockError:
                 with lock:
                     cycles += 1
                     if cycles == 2:
